@@ -25,8 +25,8 @@
 
     <div>
         <ol>
-            <li v-for="todo in todos">
-                {{todo.text}}
+            <li v-for="(todo,i) in todos">
+               <div style="color:#7fa241">{{i}} {{todo.text}}</div>
             </li>
         </ol>
     </div>
@@ -39,16 +39,31 @@
     <div>
         input: <input type="text" v-model="message" >
     </div>
-
+    <div>
+        <h1 v-bind:style="{color:'red',fontSize:'15px'}">我是什么颜色</h1>
+    </div>
+    <div>
+        <input type="number">
+    </div>
+    <div >
+        <blog-title v-for="i in 10" v-bind:key="i" v-bind:title="i" v-on:alt="alert($event)">啊哈哈</blog-title>
+    </div>
 </div>
 
 <script>
+
+    Vue.component('blog-title',{
+        props:['title'],
+        template:`<h3 @click="$emit('alt',title)">{{title}}<slot></slot></h3>`
+    });
+
     var app = new Vue({
         el: '#app',
         data: {
             message: 'hello World!',
             title: 'text',
             isShow: true,
+            color:'#6f2a77',
             todos: [
                 {text: '学习java'},
                 {text: '学习html'},
